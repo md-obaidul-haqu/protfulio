@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!--
+      Need a visual blank slate?
+      Remove all code in `styles.css`!
+    -->
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="script.js"></script>
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@300;700&family=Syne+Mono&display=swap" rel="stylesheet">
+
+
+
+  </head>
+  <body>
+    <svg width="0" height="0">
+      <filter id="f" color-interpolation-filters="sRGB">
+        <feColorMatrix
+          values="2 -3 -2 0 0
+													0  0  0 0 0
+													0  0  0 0 0
+													0  0  0 1 0"
+        ></feColorMatrix>
+        <feColorMatrix
+          values="  0 0 0 0 0
+													  0 0 0 0 0
+													  0 0 0 0 0
+													999 0 0 0 0"
+        ></feColorMatrix>
+        <feComposite operator="in" in="SourceGraphic"></feComposite>
+      </filter>
+    </svg>
+    <header>
+      <h2>Scroll filter animation</h2>
+    </header>
+    <main>
+      <p>
+        Pen combining pure CSS scroll-driven animations with filters and with a
+        bit of Houdini magic. If nothing happens on scroll for you, read below
+        for support info.
+      </p>
+      <p>
+        May 2023 info: scroll-driven animations are supported in Firefox
+        starting with version 103 where the
+        <kbd>layout.css.scroll-driven-animations.enabled</kbd> flag is set to
+        true in <kbd>about:config</kbd> and in Chromium browsers starting with
+        version 107 where the
+        <strong>Experimental Web Platform features</strong> flag is enabled.
+      </p>
+      <p>
+        We're using just a single image on two layers and some SVG filter magic
+        for selective <code>grayscale()</code>/ <code>hue-rotate()</code>. The
+        bottom layer gets progressively desaturated with scroll, while the top
+        layer first has the pixels where the red channel isn't dominant (2x the
+        red channel isn't at least 3x the green channel plus 2x the blue
+        channel) blackened. Note that we need to explicitly set
+        <code>color-interpolation-filters</code> to <code>sRGB</code> in order
+        to get the same result cross-browser. Then those black pixels are made
+        transparent. Then the original image is placed in the non-transparent
+        area. And finally, a <code>hue-rotate()</code> filter is applied, with
+        the angle going from <code>0°</code> to <code>360°</code> as the scroll
+        progress goes from <code>0%</code> to <code>100%</code>.
+      </p>
+      <p>
+        For all the things that change on scroll, a single animation is needed:
+        <code>--k</code> goes from <code>0</code> to <code>1</code> as the
+        scroll progress goes from <code>0%</code> to <code>100%</code>. The
+        values of all other properties that change depend on <code>--k</code>,
+        which can be animated if it's registered via <code>@property</code> -
+        note that this is only supported in Chromium browsers (tested) and in
+        Safari TP (not tested, sorry, I'm on Linux).
+      </p>
+      <p>
+        The intersection of support for the features used here is just Chromium
+        browsers for now, but hopefully more will follow.
+      </p>
+    </main>
+    <footer>
+      <p>
+        Got any other questions about this? Found any problems with it?<br />You
+        can drop a comment here or ping me on
+        <a
+          href="https://mastodon.social/@anatudor"
+          target="_blank"
+          data-ico="🦣"
+          >Mastodon</a
+        >
+        or on
+        <a href="https://twitter.com/anatudor" target="_blank" data-ico="🐦"
+          >Twitter</a
+        >.
+      </p>
+      <p>
+        And if you like the Maths and Physics infused CSS, canvas and SVG work
+        that I've been putting out for over a decade, you can support it by
+        being a cool cat and becoming a patron on
+        <a href="https://www.patreon.com/anatudor" target="_blank">Patreon</a>
+        or with a one time donation on
+        <a href="https://ko-fi.com/anatudor" target="_blank">Ko-fi</a>. Or at
+        least by sharing this to show the world what can be done with just CSS
+        and SVG these days... because I think it's pretty damn cool!
+      </p>
+      <em>Thank you for checking this out!</em>
+    </footer>
+  </body>
+</html>

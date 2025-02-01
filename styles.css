@@ -1,0 +1,84 @@
+@property --k {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: true;
+  }
+  html {
+    --a: calc(var(--k) * 360deg);
+    animation: k 1s forwards;
+    animation-timeline: scroll(root);
+  }
+  html::before,
+  html::after {
+    --img: url(https://images.unsplash.com/photo-1587052755556-89808205c097?w=1600)
+      50% / cover;
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    background: radial-gradient(
+        circle,
+        transparent calc((1 - var(--k)) * 100%),
+        hsla(0deg, 0%, 0%, 0.375)
+      ),
+      var(--img);
+    filter: grayScale(var(--k));
+    content: '';
+  }
+  html::after {
+    background: var(--img);
+    filter: url(#f) hue-rotate(var(--a));
+  }
+  
+  @keyframes k {
+    to {
+      --k: 1;
+    }
+  }
+  body {
+    font: clamp(0.75em, 5vw, 1.5em) shantell sans, cursive;
+  }
+  
+  header,
+  footer {
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 2em;
+    font-size: 2.75em;
+    text-shadow: 1px 1px 3px #fff;
+  }
+  
+  p {
+    margin: 0 auto 50vh;
+    padding: 1em;
+    max-width: 43em;
+    background: hsla(0deg, 0%, 100%, 0.35);
+    backdrop-filter: blur(5px);
+  }
+  p:first-letter {
+    color: hsl(var(--a), 100%, 30%);
+    font-size: 1.75em;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px #000;
+  }
+  
+  code,
+  kbd {
+    font-family: syne mono;
+  }
+  
+  a {
+    color: hsl(var(--a), 100%, 30%);
+    text-shadow: 1px 1px 1px #000;
+  }
+  
+  em {
+    display: block;
+    padding-bottom: 2em;
+    color: hsl(var(--a), 100%, 70%);
+    font-size: 2em;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px #000;
+  }
+  
